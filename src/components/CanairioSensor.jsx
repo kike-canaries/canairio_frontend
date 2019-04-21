@@ -21,11 +21,11 @@ class CanairioSensor extends Component {
     }
 
     selectForEdit = (id) => {
-        let note = this.props.sensors[id];
-        this.setState({text: note.text, updateSensorId: id});
+        let sensor = this.props.sensors[id];
+        this.setState({text: sensor.text, updateSensorId: id});
     }
 
-    submitNote = (e) => {
+    submitsensor = (e) => {
         e.preventDefault();
         if (this.state.updateSensorId === null) {
             this.props.addSensor(this.state.text).then(this.resetForm)
@@ -43,23 +43,23 @@ class CanairioSensor extends Component {
                     {this.props.user.username} (<a onClick={this.props.logout}>logout</a>)
                 </div>
 
-                <h3>Add new note</h3>
-                <form onSubmit={this.submitNote}>
+                <h3>Add new sensor</h3>
+                <form onSubmit={this.submitsensor}>
                     <input
                         value={this.state.text}
-                        placeholder="Enter note here..."
+                        placeholder="Enter sensor here..."
                         onChange={(e) => this.setState({text: e.target.value})}
                         required />
                     <button onClick={this.resetForm}>Reset</button>
-                    <input type="submit" value="Save Note" />
+                    <input type="submit" value="Save sensor" />
                 </form>
 
-                <h3>Notes</h3>
+                <h3>sensors</h3>
                 <table>
                     <tbody>
-                        {this.props.sensors.map((note, id) => (
-                            <tr key={`note_${note.id}`}>
-                                <td>{note.text}</td>
+                        {this.props.sensors.map((sensor, id) => (
+                            <tr key={`sensor_${sensor.id}`}>
+                                <td>{sensor.text}</td>
                                 <td><button onClick={() => this.selectForEdit(id)}>edit</button></td>
                                 <td><button onClick={() => this.props.deleteSensor(id)}>delete</button></td>
                             </tr>
